@@ -105,6 +105,7 @@ class CollectionFactory(MP_NodeFactory):
 
     class Meta:
         model = Collection
+        django_get_or_create = ("name",)
 
 
 class PageFactory(MP_NodeFactory):
@@ -122,7 +123,6 @@ class CollectionMemberFactory(DjangoModelFactory):
 class ImageFactory(CollectionMemberFactory):
     class Meta:
         model = get_image_model()
-        django_get_or_create = ("name",)
 
     title = "An image"
     file = factory.django.ImageField()
