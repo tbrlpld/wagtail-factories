@@ -3,6 +3,7 @@ __pycache__/
 *.sqlite3
 .coverage
 .coverage.*
+.venv
 
 # Build
 build/
@@ -12,3 +13,6 @@ dist/
 .cache
 .tox
 htmlcov
+
+# IDE
+.idea
