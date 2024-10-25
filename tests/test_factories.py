@@ -1,7 +1,7 @@
 import pytest
 import wagtail_factories
 from wagtail import blocks
-from wagtail.models import Page, Site
+from wagtail.models import Collection, Page, Site
 
 from tests.testapp.factories import MyTestPageFactory, MyTestPageGetOrCreateFactory
 
@@ -130,6 +130,17 @@ def test_site_multiple_no_args_or_kwargs():
 def test_image_no_args_or_kwargs():
     image = wagtail_factories.ImageFactory()
     assert image.collection.name == "Test collection"
+
+
+@pytest.mark.django_db()
+def test_image_reuses_collection():
+    image_1 = wagtail_factories.ImageFactory()
+    image_2 = wagtail_factories.ImageFactory()
+
+    assert image_1.collection.name == "Test collection"
+    assert image_2.collection.name == "Test collection"
+    assert image_1.collection == image_2.collection
+    assert Collection.objects.filter(name="Test collection").count() == 1
 
 
 @pytest.mark.django_db()
